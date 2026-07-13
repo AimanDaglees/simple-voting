@@ -1,0 +1,111 @@
+simple_voting.admin:
+  path: '/admin/structure/simple-voting'
+  defaults:
+    _controller: '\Drupal\simple_voting\Controller\AdminController::dashboard'
+    _title: 'Simple voting'
+  requirements:
+    _permission: 'administer simple voting'
+
+simple_voting.settings:
+  path: '/admin/config/system/simple-voting'
+  defaults:
+    _form: '\Drupal\simple_voting\Form\VotingSettingsForm'
+    _title: 'Simple voting settings'
+  requirements:
+    _permission: 'administer simple voting'
+
+simple_voting.question_list:
+  path: '/voting'
+  defaults:
+    _controller: '\Drupal\simple_voting\Controller\VotingController::questionList'
+    _title: 'Voting questions'
+  requirements:
+    _permission: 'access simple voting'
+    _user_is_logged_in: 'TRUE'
+  options:
+    no_cache: TRUE
+
+simple_voting.vote:
+  path: '/voting/{voting_question}'
+  defaults:
+    _form: '\Drupal\simple_voting\Form\VoteForm'
+    _title_callback: '\Drupal\simple_voting\Controller\VotingController::questionTitle'
+  requirements:
+    _permission: 'cast simple voting votes'
+    _user_is_logged_in: 'TRUE'
+  options:
+    no_cache: TRUE
+    parameters:
+      voting_question:
+        type: entity:voting_question
+
+simple_voting.results:
+  path: '/voting/{voting_question}/results'
+  defaults:
+    _controller: '\Drupal\simple_voting\Controller\VotingController::results'
+    _title_callback: '\Drupal\simple_voting\Controller\VotingController::resultsTitle'
+  requirements:
+    _permission: 'view simple voting results'
+    _user_is_logged_in: 'TRUE'
+  options:
+    no_cache: TRUE
+    parameters:
+      voting_question:
+        type: entity:voting_question
+
+simple_voting.api.questions:
+  path: '/api/v1/voting/questions'
+  defaults:
+    _controller: '\Drupal\simple_voting\Controller\VotingApiController::questions'
+  methods: [GET]
+  requirements:
+    _permission: 'access simple voting api'
+    _user_is_logged_in: 'TRUE'
+  options:
+    _auth: ['basic_auth']
+    no_cache: TRUE
+
+simple_voting.api.question:
+  path: '/api/v1/voting/questions/{voting_question}'
+  defaults:
+    _controller: '\Drupal\simple_voting\Controller\VotingApiController::question'
+  methods: [GET]
+  requirements:
+    _permission: 'access simple voting api'
+    _user_is_logged_in: 'TRUE'
+  options:
+    _auth: ['basic_auth']
+    no_cache: TRUE
+    parameters:
+      voting_question:
+        type: entity:voting_question
+
+simple_voting.api.vote:
+  path: '/api/v1/voting/questions/{voting_question}/votes'
+  defaults:
+    _controller: '\Drupal\simple_voting\Controller\VotingApiController::vote'
+  methods: [POST]
+  requirements:
+    _permission: 'access simple voting api'
+    _user_is_logged_in: 'TRUE'
+  options:
+    _auth: ['basic_auth']
+    no_cache: TRUE
+    parameters:
+      voting_question:
+        type: entity:voting_question
+
+simple_voting.api.results:
+  path: '/api/v1/voting/questions/{voting_question}/results'
+  defaults:
+    _controller: '\Drupal\simple_voting\Controller\VotingApiController::results'
+  methods: [GET]
+  requirements:
+    _permission: 'access simple voting api'
+    _user_is_logged_in: 'TRUE'
+  options:
+    _auth: ['basic_auth']
+    no_cache: TRUE
+    parameters:
+      voting_question:
+        type: entity:voting_question

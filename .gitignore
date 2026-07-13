@@ -1,0 +1,10 @@
+/vendor/
+/web/core/
+/web/modules/contrib/
+/web/themes/contrib/
+/web/sites/default/files/
+/web/sites/default/settings.php
+/.phpunit.result.cache
+/database/*.sql
+/database/*.sql.gz
+!/database/simple-voting.sql.gz

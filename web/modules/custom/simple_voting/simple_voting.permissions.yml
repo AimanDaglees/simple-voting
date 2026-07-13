@@ -1,0 +1,20 @@
+administer simple voting:
+  title: 'Administer simple voting'
+  description: 'Create, edit, delete, and configure voting questions and options.'
+  restrict access: true
+
+access simple voting:
+  title: 'Access simple voting'
+  description: 'View active voting questions.'
+
+cast simple voting votes:
+  title: 'Cast simple voting votes'
+  description: 'Submit one vote per question.'
+
+view simple voting results:
+  title: 'View simple voting results'
+  description: 'View results when the question configuration permits it.'
+
+access simple voting api:
+  title: 'Access simple voting API'
+  description: 'Use the external voting API.'

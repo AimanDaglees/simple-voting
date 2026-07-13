@@ -1,0 +1,24 @@
+services:
+  logger.channel.simple_voting:
+    parent: logger.channel_base
+    arguments: ['simple_voting']
+
+  Drupal\simple_voting\Service\VoteManager:
+    arguments:
+      - '@database'
+      - '@current_user'
+      - '@config.factory'
+      - '@entity_type.manager'
+      - '@datetime.time'
+      - '@logger.channel.simple_voting'
+      - '@cache_tags.invalidator'
+
+  Drupal\simple_voting\Service\ResultManager:
+    arguments:
+      - '@database'
+      - '@entity_type.manager'
+
+  Drupal\simple_voting\Service\QuestionSerializer:
+    arguments:
+      - '@entity_type.manager'
+      - '@file_url_generator'

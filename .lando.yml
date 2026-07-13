@@ -1,0 +1,28 @@
+name: simple-voting
+recipe: drupal11
+
+config:
+  php: '8.3'
+  composer_version: '2-latest'
+  via: apache:2.4
+  webroot: web
+  database: mariadb:10.11
+  drush: ^13
+  xdebug: false
+
+tooling:
+  phpcs:
+    service: appserver
+    cmd: /app/vendor/bin/phpcs
+  phpcbf:
+    service: appserver
+    cmd: /app/vendor/bin/phpcbf
+  phpstan:
+    service: appserver
+    cmd: /app/vendor/bin/phpstan
+  phpunit:
+    service: appserver
+    cmd: /app/vendor/bin/phpunit
+  lint-module:
+    service: appserver
+    cmd: bash /app/scripts/lando/lint-module.sh

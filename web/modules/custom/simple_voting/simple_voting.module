@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * Hooks for the Simple Voting module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for voting questions.
+ */
+function simple_voting_voting_question_predelete(EntityInterface $entity): void {
+  $storage = \Drupal::entityTypeManager()->getStorage('voting_option');
+  $option_ids = $storage->getQuery()
+    ->accessCheck(FALSE)
+    ->condition('question', (int) $entity->id())
+    ->execute();
+
+  if ($option_ids) {
+    $storage->delete($storage->loadMultiple($option_ids));
+  }
+
+  \Drupal::database()
+    ->delete('simple_voting_vote')
+    ->condition('question_id', (int) $entity->id())
+    ->execute();
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for voting options.
+ */
+function simple_voting_voting_option_predelete(EntityInterface $entity): void {
+  \Drupal::database()
+    ->delete('simple_voting_vote')
+    ->condition('option_id', (int) $entity->id())
+    ->execute();
+}

@@ -1,0 +1,7 @@
+openapi: 3.0.3
+info:
+  title: Simple Voting API
+  version: 1.0.0
+  description: Authenticated API implemented manually by the Simple Voting Drupal module.
+servers:
+  - url: https://simple-voting.lndo.site

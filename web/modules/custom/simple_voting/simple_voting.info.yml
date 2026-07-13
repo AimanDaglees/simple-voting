@@ -1,0 +1,12 @@
+name: Simple Voting
+type: module
+description: 'Provides configurable questions, answer options, one vote per authenticated user, and a custom external API.'
+package: Custom
+core_version_requirement: ^11
+configure: simple_voting.settings
+dependencies:
+  - drupal:basic_auth
+  - drupal:file
+  - drupal:image
+  - drupal:options
+  - drupal:user

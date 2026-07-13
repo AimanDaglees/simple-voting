@@ -1,0 +1,67 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for Simple Voting.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_schema().
+ */
+function simple_voting_schema(): array {
+  $schema['simple_voting_vote'] = [
+    'description' => 'Stores one answer-option vote per user and question.',
+    'fields' => [
+      'id' => [
+        'description' => 'Primary vote identifier.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'question_id' => [
+        'description' => 'Voting question entity ID.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'option_id' => [
+        'description' => 'Voting option entity ID.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'uid' => [
+        'description' => 'Authenticated Drupal user ID.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'created' => [
+        'description' => 'Unix timestamp when the vote was submitted.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ],
+      'source' => [
+        'description' => 'Origin of the vote: cms or api.',
+        'type' => 'varchar_ascii',
+        'length' => 16,
+        'not null' => TRUE,
+        'default' => 'cms',
+      ],
+    ],
+    'primary key' => ['id'],
+    'unique keys' => [
+      'question_uid' => ['question_id', 'uid'],
+    ],
+    'indexes' => [
+      'question_option' => ['question_id', 'option_id'],
+      'uid' => ['uid'],
+      'created' => ['created'],
+    ],
+  ];
+
+  return $schema;
+}

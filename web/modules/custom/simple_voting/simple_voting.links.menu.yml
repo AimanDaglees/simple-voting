@@ -1,0 +1,23 @@
+simple_voting.admin:
+  title: 'Simple voting'
+  description: 'Manage voting questions, options, and settings.'
+  route_name: simple_voting.admin
+  parent: system.admin_structure
+
+simple_voting.questions:
+  title: 'Questions'
+  route_name: entity.voting_question.collection
+  parent: simple_voting.admin
+  weight: 0
+
+simple_voting.options:
+  title: 'Answer options'
+  route_name: entity.voting_option.collection
+  parent: simple_voting.admin
+  weight: 1
+
+simple_voting.settings:
+  title: 'Simple voting'
+  description: 'Enable or disable the complete voting flow.'
+  route_name: simple_voting.settings
+  parent: system.admin_config_system
